@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libassign-4.a "CMakeFiles/assign-4.dir/Assignment-4.cpp.o" "CMakeFiles/assign-4.dir/Z3Mgr.cpp.o" "CMakeFiles/assign-4.dir/Z3SSEMgr.cpp.o"
+/usr/bin/ranlib ../lib/libassign-4.a

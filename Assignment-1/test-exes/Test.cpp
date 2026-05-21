@@ -68,7 +68,6 @@ void Test(std::string file){
     Graph *g = new Graph();
     int source = 0;
     int target = 0;
-  
     string line;
     ifstream myfile(file.c_str());
     if (myfile.is_open())

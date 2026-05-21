@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libassign-3.a "CMakeFiles/assign-3.dir/Assignment-3.cpp.o"
+/usr/bin/ranlib ../lib/libassign-3.a
