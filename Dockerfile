@@ -26,6 +26,10 @@ ENV build_deps="wget xz-utils git gdb tcl"
 RUN apt-get update --fix-missing
 RUN apt-get install -y $build_deps $lib_deps
 
+# Prevent GDB from waiting for Ubuntu's remote debuginfod service.
+# Local debug symbols installed by packages such as libc6-dbg remain available.
+RUN rm -f /etc/debuginfod/*.urls
+
 # Fetch and build SVF source.
 RUN echo "Downloading LLVM and building SVF to " ${HOME}
 WORKDIR ${HOME}
@@ -56,8 +60,5 @@ RUN cmake \
     -DZ3_DIR="${Z3_DIR}" \
     .
 RUN make -j8
-
-# GDB inside a Dev Container requires ptrace permissions at container runtime.
-LABEL devcontainer.metadata='[{"capAdd":["SYS_PTRACE"],"securityOpt":["seccomp=unconfined"]}]'
 
 CMD ["/bin/bash"]
