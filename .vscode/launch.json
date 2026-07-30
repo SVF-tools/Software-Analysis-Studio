@@ -5,9 +5,9 @@
             "name": "(debug) Launch",
             "type": "cppdbg",
             "request": "launch",
-            // Please change to the executable of your current lab or assignment
-            "program": "${workspaceFolder}/bin/ass1",
-            "args": ["/home/SVF-tools/Software-Analysis-Studio/Assignment-1/test-exes/test1.graph.txt"], // may input the test llvm bc file or other options and flags the program may use
+            // Change this to the executable of your current lab or assignment.
+            "program": "${workspaceFolder}/bin/hello",
+            "args": [],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "C/C++: cpp build active file",
             "MIMode": "gdb",
