@@ -13,6 +13,11 @@
             "MIMode": "gdb",
             "setupCommands": [
                 {
+                    "description": "Disable debuginfod downloads for system libraries",
+                    "text": "-gdb-set debuginfod enabled off",
+                    "ignoreFailures": true
+                },
+                {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true

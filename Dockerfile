@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 
 # Stop ubuntu-20 interactive options.
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ARG TARGETPLATFORM
 
 # Stop script if any individual command fails.
@@ -19,7 +19,7 @@ ENV HOME=/home/SVF-tools
 # Launchpad PPA infrastructure has been intermittently unreachable
 # (HTTP 504 from add-apt-repository), and SVF itself does not pin a Python
 # version, so the base-image python is sufficient.
-ENV lib_deps="cmake g++ gcc git zlib1g-dev libncurses5-dev libtinfo6 build-essential libssl-dev libpcre2-dev zip libzstd-dev python3-dev"
+ENV lib_deps="cmake g++ gcc git zlib1g-dev libncurses5-dev libtinfo6 build-essential libssl-dev libpcre2-dev zip libzstd-dev python3-dev libc6-dbg"
 ENV build_deps="wget xz-utils git gdb tcl"
 
 # Fetch dependencies.
@@ -35,7 +35,7 @@ RUN echo "Building SVF ..."
 RUN bash ./build.sh debug
 
 # Export SVF, llvm, z3 paths
-ENV PATH=${HOME}/SVF/Release-build/bin:$PATH
+ENV PATH=${HOME}/SVF/Debug-build/bin:$PATH
 ENV PATH=${HOME}/SVF/llvm-$llvm_version.obj/bin:$PATH
 ENV SVF_DIR=${HOME}/SVF
 ENV LLVM_DIR=${HOME}/SVF/llvm-$llvm_version.obj
@@ -47,8 +47,17 @@ WORKDIR ${HOME}
 RUN git clone "https://github.com/SVF-tools/Software-Analysis-Studio.git"
 WORKDIR ${HOME}/Software-Analysis-Studio
 RUN echo "Building Software-Analysis-Studio ..."
-RUN sed -i 's/lldb/gdb/g' ${HOME}/Software-Analysis-Studio/.vscode/launch.json
-RUN cmake -DCMAKE_BUILD_TYPE=Debug .
+COPY .vscode/launch.json .vscode/launch.json
+COPY .vscode/tasks.json .vscode/tasks.json
+RUN cmake \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DSVF_DIR="${SVF_DIR}/Debug-build/lib/cmake/SVF" \
+    -DLLVM_DIR="${LLVM_DIR}/lib/cmake/llvm" \
+    -DZ3_DIR="${Z3_DIR}" \
+    .
 RUN make -j8
+
+# GDB inside a Dev Container requires ptrace permissions at container runtime.
+LABEL devcontainer.metadata='[{"capAdd":["SYS_PTRACE"],"securityOpt":["seccomp=unconfined"]}]'
 
 CMD ["/bin/bash"]
