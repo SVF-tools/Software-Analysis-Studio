@@ -9,10 +9,10 @@ using namespace SVFUtil;
 u32_t SSE::assert_checked = 0;
 
 /*
- // Software-Verification-Teaching Assignment 4 main function entry
- // To run your program with testcases , please set the bitcode from Assignment-2/Tests/testcases/sse/ for "args" in
- file'.vscode/launch.json'
- // e.g. To check test1, set "args": ["Assignment-2/Tests/testcases/sse/test1.ll"] in file'.vscode/launch.json'
+ // Software-Analysis-Studio Assignment 4 main function entry
+ // To run your program with a test case, set "program" to "${workspaceFolder}/bin/ass4"
+ // and set "args" to bitcode from Assignment-4/Tests/testcases/sse in .vscode/launch.json.
+ // For example: "args": ["${workspaceFolder}/Assignment-4/Tests/testcases/sse/test1.ll"]
  */
 int main(int argc, char** argv) {
 	int arg_num = 0;
@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
 	moduleNameVec = OptionBase::parseOptions(arg_num,
 	                                         arg_value,
-	                                         "Software-Verification-Teaching Assignment 4",
+	                                         "Software-Analysis-Studio Assignment 4",
 	                                         "[options] <input-bitcode...>");
 
 	LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
