@@ -1,6 +1,6 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
-# Stop ubuntu-20 interactive options.
+# Disable interactive package prompts.
 ENV DEBIAN_FRONTEND=noninteractive
 ARG TARGETPLATFORM
 
@@ -14,11 +14,8 @@ ENV llvm_version=21.1.0
 ENV HOME=/home/SVF-tools
 
 # Define dependencies.
-# Use the default python3-dev that ships with the Ubuntu base image (24.04
-# ships python 3.12) instead of pulling python3.10-dev from a PPA — the
-# Launchpad PPA infrastructure has been intermittently unreachable
-# (HTTP 504 from add-apt-repository), and SVF itself does not pin a Python
-# version, so the base-image python is sufficient.
+# Use the base image's python3-dev instead of a Python 3.10 PPA. The PPA
+# has been intermittently unreachable, and SVF does not pin a Python version.
 ENV lib_deps="cmake g++ gcc git zlib1g-dev libncurses5-dev libtinfo6 build-essential libssl-dev libpcre2-dev zip libzstd-dev python3-dev libc6-dbg"
 ENV build_deps="wget xz-utils git gdb tcl"
 
