@@ -7,7 +7,7 @@ PROJECTHOME=$(pwd)
 sysOS=`uname -s`
 
 # Set the major version of LLVM
-MajorLLVMVer=21
+MajorLLVMVer=22
 
 # Define the full LLVM version
 LLVMVer=${MajorLLVMVer}.1.0

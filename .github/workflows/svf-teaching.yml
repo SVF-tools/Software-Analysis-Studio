@@ -5,7 +5,7 @@ on: [push, pull_request]
 
 env:
   # Keep this version in sync with the prebuilt svf-lib package.
-  LLVM_VERSION: '21.1.0'
+  LLVM_VERSION: '22.1.0'
 
 jobs:
   build:
