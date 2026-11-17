@@ -32,6 +32,7 @@ RUN echo "Downloading LLVM and building SVF to " ${HOME}
 WORKDIR ${HOME}
 RUN git clone "https://github.com/SVF-tools/SVF.git"
 WORKDIR ${HOME}/SVF
+RUN git checkout 02084580a962fc3e6f157e63f803c2463e48f189
 RUN echo "Building SVF ..."
 RUN bash ./build.sh debug
 
