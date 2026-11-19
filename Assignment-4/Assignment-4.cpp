@@ -125,7 +125,7 @@ bool SSE::handleNonBranch(const IntraCFGEdge* edge) {
 		/// Given a CmpStmt "r = a > b"
 		/// cmp->getOpVarID(0)/cmp->getOpVarID(1) returns the first/second operand, i.e., "a" and "b"
 		/// cmp->getResID() returns the result operand "r" and cmp->getPredicate() gives you the predicate ">"
-		/// Find the comparison predicates in "class CmpStmt:Predicate" under SVF/svf/include/SVFIR/SVFStatements.h
+		/// Find the comparison predicates in "class CmpStmt:Predicate" under SVF/svf/include/SVFValues/SVFStatements.h
 		/// You are only required to handle integer predicates, including ICMP_EQ, ICMP_NE, ICMP_UGT, ICMP_UGE, ICMP_ULT, ICMP_ULE, ICMP_SGT, ICMP_SGE, ICMP_SLE, ICMP_SLT
 		/// We assume integer-overflow-free in this assignment
 		else if (const CmpStmt *cmp = SVFUtil::dyn_cast<CmpStmt>(stmt))

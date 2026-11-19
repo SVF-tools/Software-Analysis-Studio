@@ -33,9 +33,9 @@ void Test1(std::vector<std::string>& moduleNameVec)
 {
     // Directly call buildSVFModule
     LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
-    /// Build Program Assignment Graph (SVFIR)
-    SVFIRBuilder builder;
-    SVFIR *pag = builder.build();
+    /// Build Program Assignment Graph (PAG)
+    PAGBuilder builder;
+    PAG *pag = builder.build();
     ICFG *icfg = pag->getICFG();
     icfg->dump("icfg");
     std::vector<const ICFGNode *> path;
@@ -87,7 +87,7 @@ void Test1(std::vector<std::string>& moduleNameVec)
         SVFUtil::outs() << SVFUtil::sucMsg("test3.ll pass\n");
     }
 
-    SVFIR::releaseSVFIR();
+    PAG::releasePAG();
     LLVMModuleSet::releaseLLVMModuleSet();
     delete gt;
 }

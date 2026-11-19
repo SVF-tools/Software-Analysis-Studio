@@ -28,7 +28,7 @@
 #ifndef SOFTWARE_SECURITY_ANALYSIS_ASSIGNMENT_4_H
 #define SOFTWARE_SECURITY_ANALYSIS_ASSIGNMENT_4_H
 
-#include "SVF-LLVM/SVFIRBuilder.h"
+#include "SVF-LLVM/PAGBuilder.h"
 #include "Z3SSEMgr.h"
 #include <stdlib.h>
 
@@ -40,7 +40,7 @@ namespace SVF {
 		typedef std::pair<const ICFGEdge*, CallStack> ICFGEdgeStackPair;
 
 		/// Constructor
-		SSE(SVFIR* s, ICFG* i)
+		SSE(PAG* s, ICFG* i)
 		: svfir(s)
 		, icfg(i) {
 			z3Mgr = new Z3SSEMgr(s);
@@ -188,7 +188,7 @@ namespace SVF {
 		std::set<std::string> paths;
 
 	 protected:
-		SVFIR* svfir;
+		PAG* svfir;
 		Set<ICFGEdgeStackPair> visited;
 		CallStack callstack;
 		CallStack callingCtx;

@@ -21,7 +21,7 @@
 //===-----------------------------------------------------------------------===//
 
 /*
- // SVFIR ICFG Generation
+ // PAG ICFG Generation
  //
  // Author: Guanqin Zhang  email: 152585@uts.edu.au
  */
@@ -30,7 +30,7 @@
 #include "Graphs/SVFG.h"
 #include "WPA/Andersen.h"
 #include "SABER/LeakChecker.h"
-#include "SVF-LLVM/SVFIRBuilder.h"
+#include "SVF-LLVM/PAGBuilder.h"
 
 
 using namespace SVF;
@@ -57,9 +57,9 @@ int main(int argc, char ** argv) {
  
     LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
 
-    /// Build Program Assignment Graph (SVFIR or PAG)
-    SVFIRBuilder builder;
-    SVFIR *pag = builder.build();
+    /// Build Program Assignment Graph (PAG or PAG)
+    PAGBuilder builder;
+    PAG *pag = builder.build();
     //dump pag
     pag->dump(PAG::getPAG()->getModuleIdentifier() + ".pag");
     /// ICFG
@@ -77,8 +77,8 @@ int main(int argc, char ** argv) {
         // }
     }
 
-    // iterate each SVFVar on SVFIR
-    for(SVFIR::iterator p = pag->begin(); p != pag->end();p++)
+    // iterate each SVFVar on PAG
+    for(PAG::iterator p = pag->begin(); p != pag->end();p++)
     {
         SVFVar *n = p->second;
         // SVFUtil::outs() << n->toString() << "\n";

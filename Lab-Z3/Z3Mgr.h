@@ -38,7 +38,7 @@ namespace SVF {
 #define DBOP(X)
 #endif
 
-// An ObjVar's ID in SVFIR is marked using AddressMask (0x7f000000) to mimic a
+// An ObjVar's ID in PAG is marked using AddressMask (0x7f000000) to mimic a
 // virtual memory address. This is not a physical runtime address. The flipped
 // mask strips the address marker.
 #define AddressMask 0x7f000000
