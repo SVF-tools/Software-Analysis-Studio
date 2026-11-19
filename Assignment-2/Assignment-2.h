@@ -28,7 +28,7 @@
 #define ASSIGNMENT_2_H_
 
 #include "SVF-LLVM/LLVMUtil.h"
-#include "SVF-LLVM/SVFIRBuilder.h"
+#include "SVF-LLVM/PAGBuilder.h"
 using namespace SVF;
 
 class ICFGTraversal
@@ -38,7 +38,7 @@ public:
 
 public:
 
-    ICFGTraversal(SVFIR *p) : pag(p) {}
+    ICFGTraversal(PAG *p) : pag(p) {}
 
     /// TODO: to be implemented
     virtual void collectICFGPath(std::vector<unsigned> &path);
@@ -83,7 +83,7 @@ protected:
     Set<std::pair<const ICFGNode*, CallStack>> visited;
     CallStack callstack;
 
-    SVFIR* pag;
+    PAG* pag;
     std::set<std::string> paths;
     std::vector<unsigned> path;
 

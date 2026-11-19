@@ -29,7 +29,7 @@
 #define SOFTWARE_SECURITY_ANALYSIS_ASSIGNMENT_3_H
 
 #include "SVF-LLVM/LLVMUtil.h"
-#include "SVF-LLVM/SVFIRBuilder.h"
+#include "SVF-LLVM/PAGBuilder.h"
 #include "WPA/Andersen.h"
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -41,7 +41,7 @@ using namespace SVF;
 class AndersenPTA : public SVF::AndersenBase {
  public:
 	// Constructor
-	AndersenPTA(SVF::SVFIR* _pag)
+	AndersenPTA(SVF::PAG* _pag)
 	: AndersenBase(_pag){};
 
 	// dump constraint graph
@@ -77,7 +77,7 @@ class ICFGTraversal {
 	typedef std::pair<const ICFGNode*, CallStack> ICFGNodeCallStackPair;
 
  public:
-	ICFGTraversal(SVFIR* p)
+	ICFGTraversal(PAG* p)
 	: pag(p) {}
 
 	/// TODO: Configure source and sink function names from SrcSnk.txt
@@ -127,7 +127,7 @@ class ICFGTraversal {
 	Set<std::pair<const ICFGNode*, CallStack>> visited;
 	CallStack callstack;
 
-	SVFIR* pag;
+	PAG* pag;
 	std::set<std::string> paths;
 	std::vector<unsigned> path;
 

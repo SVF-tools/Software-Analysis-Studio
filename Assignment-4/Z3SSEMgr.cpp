@@ -27,7 +27,7 @@
 
 #include "Z3SSEMgr.h"
 #include "SVF-LLVM/LLVMUtil.h"
-#include "SVFIR/SVFIR.h"
+#include "Graphs/PAG.h"
 #include <iomanip>
 #include <set>
 
@@ -36,7 +36,7 @@ using namespace SVFUtil;
 using namespace llvm;
 using namespace z3;
 
-Z3SSEMgr::Z3SSEMgr(SVFIR* ir)
+Z3SSEMgr::Z3SSEMgr(PAG* ir)
 : Z3Mgr(ir->getSVFVarNum() * 10)
 , svfir(ir) {
 }
@@ -165,7 +165,7 @@ void Z3SSEMgr::printExprValues(const CallStack& callingCtx) {
 	std::map<std::string, std::string> printValMap;
 	std::map<NodeID, std::string> objKeyMap;
 	std::map<NodeID, std::string> valKeyMap;
-	for (SVFIR::iterator nIter = svfir->begin(); nIter != svfir->end(); ++nIter) {
+	for (PAG::iterator nIter = svfir->begin(); nIter != svfir->end(); ++nIter) {
 		expr e = getEvalExpr(getZ3Expr(nIter->first, callingCtx));
 		if (e.is_numeral()) {
 			NodeID varID = nIter->second->getId();

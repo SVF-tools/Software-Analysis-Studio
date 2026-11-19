@@ -2,7 +2,7 @@
 
 #include "Graphs/CallGraph.h"
 #include "SVF-LLVM/LLVMUtil.h"
-#include "SVF-LLVM/SVFIRBuilder.h"
+#include "SVF-LLVM/PAGBuilder.h"
 #include "Util/CommandLine.h"
 #include "Util/Options.h"
 
@@ -19,9 +19,9 @@ void checkICFGcase(std::string moduleName, const std::set<std::string>& res, con
 void TestICFG(std::vector<std::string>& moduleNameVec) {
 	LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
 
-	/// Build Program Assignment Graph (SVFIR)
-	SVFIRBuilder builder;
-	SVFIR* pag = builder.build();
+	/// Build Program Assignment Graph (PAG)
+	PAGBuilder builder;
+	PAG* pag = builder.build();
 	ICFG* icfg = pag->getICFG();
 	// If you want to test your own case, please change the dump name
 	ICFGTraversal* gt = new ICFGTraversal(pag);
@@ -58,27 +58,27 @@ void TestICFG(std::vector<std::string>& moduleNameVec) {
 
 	for (auto path : gt->getPaths())
 		std::cerr << path << "\n";
-	SVFIR::releaseSVFIR();
+	PAG::releasePAG();
 	LLVMModuleSet::releaseLLVMModuleSet();
 	delete gt;
 }
 
 void TestPTA(std::vector<std::string>& moduleNameVec) {
 	LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
-	SVF::SVFIRBuilder builder;
-	SVF::SVFIR* pag = builder.build();
+	SVF::PAGBuilder builder;
+	SVF::PAG* pag = builder.build();
 	AndersenPTA* andersenPTA = new AndersenPTA(pag);
 	andersenPTA->analyze();
 	delete andersenPTA;
 	SVF::LLVMModuleSet::releaseLLVMModuleSet();
-	SVF::SVFIR::releaseSVFIR();
+	SVF::PAG::releasePAG();
 }
 
 void TestTaint(std::vector<std::string>& moduleNameVec) {
 	LLVMModuleSet::getLLVMModuleSet()->buildSVFModule(moduleNameVec);
-	/// Build Program Assignment Graph (SVFIR)
-	SVF::SVFIRBuilder builder;
-	SVF::SVFIR* pag = builder.build();
+	/// Build Program Assignment Graph (PAG)
+	SVF::PAGBuilder builder;
+	SVF::PAG* pag = builder.build();
 
 	ICFGTraversal* taint = new ICFGTraversal(pag);
 
@@ -132,7 +132,7 @@ void TestTaint(std::vector<std::string>& moduleNameVec) {
 		assert(taint->getPaths() == expected && " \n wrong paths generated - test1 failed !");
 		cout << "\n test1 passed !" << endl;
 	}
-	SVF::SVFIR::releaseSVFIR();
+	SVF::PAG::releasePAG();
 	SVF::LLVMModuleSet::releaseLLVMModuleSet();
 }
 
